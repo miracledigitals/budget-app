@@ -3,6 +3,7 @@ import { DataProvider } from './contexts/DataContext';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { AuthScreen } from './components/AuthScreen';
 import { Dashboard } from './components/Dashboard';
+import { Navbar } from './components/Navbar';
 import './App.css';
 
 function AppContent() {
@@ -18,6 +19,7 @@ function AppContent() {
 
   return (
     <DataProvider>
+      <Navbar />
       <Dashboard />
     </DataProvider>
   );

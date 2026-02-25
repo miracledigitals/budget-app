@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import { useAuth } from '../contexts/AuthContext';
 import { useData } from '../contexts/DataContext';
-import { useTheme } from '../contexts/ThemeContext';
 import { DEFAULT_CATEGORIES } from '../contexts/DataContext';
+import { BudgetChart } from './BudgetChart';
+import { SkeletonCard } from './SkeletonCard';
 
 function formatCurrency(amount: number) {
   return new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN' }).format(amount || 0);
@@ -14,12 +14,10 @@ function formatDate(dateStr: string) {
 }
 
 export function Dashboard() {
-  const { user, signOut } = useAuth();
   const { 
     activeMonth, data, loading, setActiveMonth, loadData,
     addIncome, addBudget, deleteBudget, addExpense, deleteExpense, resetMonth
   } = useData();
-  const { theme, toggleTheme } = useTheme();
 
   const [showIncomeForm, setShowIncomeForm] = useState(false);
   const [incomeAmount, setIncomeAmount] = useState('');
@@ -55,14 +53,16 @@ export function Dashboard() {
             <option value={activeMonth}>{monthLabel}</option>
           </select>
         </div>
-        <div className="header-right">
-          <span className="user-email">{user?.email}</span>
-          <button className="btn-icon" onClick={toggleTheme}>{theme === 'dark' ? '☀️' : '🌙'}</button>
-          <button className="btn btn-danger" onClick={signOut}>Logout</button>
-        </div>
       </header>
 
-      <div className="summary-cards">
+      {loading ? (
+        <div className="summary-cards">
+          {Array.from({ length: 4 }).map((_, i) => (
+            <SkeletonCard key={i} height={120} />
+          ))}
+        </div>
+      ) : (
+        <div className="summary-cards">
         <div className="card summary-card">
           <div>Income</div>
           <div className="card-value">{formatCurrency(data.income)}</div>
@@ -82,7 +82,8 @@ export function Dashboard() {
           <div>Remaining</div>
           <div className="card-value">{formatCurrency(remaining)}</div>
         </div>
-      </div>
+        </div>
+      )}
 
       {showIncomeForm && (
         <form className="form-inline" onSubmit={async e => { e.preventDefault(); await addIncome(parseFloat(incomeAmount)); setShowIncomeForm(false); }}>
@@ -172,6 +173,8 @@ export function Dashboard() {
           </tbody>
         </table>
       </section>
+
+      {!loading && <BudgetChart />}
 
       <button className="btn btn-danger" onClick={resetMonth}>Reset Month</button>
 
