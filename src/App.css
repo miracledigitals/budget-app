@@ -486,5 +486,59 @@
 
   .summary-cards {
     grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  /* Responsive Table to Cards */
+  .expenses-table thead {
+    display: none;
+  }
+
+  .expenses-table,
+  .expenses-table tbody,
+  .expenses-table tr,
+  .expenses-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .expenses-table tr {
+    margin-bottom: 1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1rem;
+    background: var(--bg-card);
+  }
+
+  .expenses-table td {
+    padding: 0.875rem 0;
+    border: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--neutral-100);
+  }
+
+  [data-theme="dark"] .expenses-table td {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .expenses-table td:last-child {
+    border-bottom: none;
+    padding-top: 1rem;
+    justify-content: flex-end;
+  }
+
+  .expenses-table td::before {
+    content: attr(data-label);
+    font-weight: 700;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .expenses-container {
+    border: none;
+    background: none;
   }
 }

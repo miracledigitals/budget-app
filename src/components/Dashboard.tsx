@@ -384,10 +384,10 @@ export function Dashboard() {
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: idx * 0.05 }}
                     >
-                      <td style={{ fontWeight: 600 }}>{exp.category}</td>
-                      <td style={{ fontWeight: 700 }}>{formatCurrency(exp.amount)}</td>
-                      <td style={{ color: 'var(--text-muted)' }}>{formatDate(exp.date)}</td>
-                      <td style={{ color: 'var(--text-muted)', maxWidth: '200px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                      <td data-label="Category" style={{ fontWeight: 600 }}>{exp.category}</td>
+                      <td data-label="Amount" style={{ fontWeight: 700 }}>{formatCurrency(exp.amount)}</td>
+                      <td data-label="Date" style={{ color: 'var(--text-muted)' }}>{formatDate(exp.date)}</td>
+                      <td data-label="Note" style={{ color: 'var(--text-muted)', maxWidth: '200px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                         {exp.note || '-'}
                       </td>
                       <td>
