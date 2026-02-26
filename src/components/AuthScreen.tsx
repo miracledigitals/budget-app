@@ -20,7 +20,7 @@ export function AuthScreen() {
     try {
       if (isRegistering) {
         await signUp(email, password);
-        setSuccess('Registration successful! Check your email to confirm your account.');
+        setSuccess('Registration successful! Redirecting to dashboard...');
       } else {
         await signIn(email, password);
       }
